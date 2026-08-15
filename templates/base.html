@@ -62,10 +62,10 @@
 				        <ul class="nav-menu">
 				          <li><a href={% url 'mainpages:home' %}>Home</a></li>
 				          <li><a href={% url 'mainpages:about' %}>About</a></li>
-				          <li class="menu-has-children"><a href="">Blog</a>
+				          <li class="menu-has-children"><a href={% url "blog:home_blog" %}>Blog</a>
 				            <ul>
-				              <li><a href="blog-home.html">Blog Home</a></li>
-				              <li><a href="blog-single.html">Blog Single</a></li>
+				              <li><a href={% url "blog:home_blog" %}>Blog Home</a></li>
+				              <li><a href={% url "blog:single_blog" %}>Blog Single</a></li>
 				            </ul>
 				          </li>	
 				          <li class="menu-has-children"><a href="">Pages</a>
