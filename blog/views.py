@@ -5,4 +5,5 @@ def blog_home(request):
 
 
 def blog_single(request):
-    return render(request,"blog/single.html")
+    context={"title":"faraz firs try","body":"this is a first try for add context to this fucking travel site","aouthor":"faraz rze"}
+    return render(request,"blog/single.html",context)
