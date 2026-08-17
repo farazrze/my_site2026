@@ -1,7 +1,13 @@
 from django.shortcuts import render
+from blog.models import Post
+
+
+
 
 def blog_home(request):
-    return render(request,"blog/home.html")
+    posts = Post.objects.filter(status=1)
+    context = {'posts': posts}
+    return render(request, "blog/home.html", context)
 
 
 def blog_single(request):
