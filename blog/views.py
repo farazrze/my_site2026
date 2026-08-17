@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from blog.models import Post
 
 
@@ -10,6 +10,7 @@ def blog_home(request):
     return render(request, "blog/home.html", context)
 
 
-def blog_single(request):
-    context={"title":"faraz firs try","body":"this is a first try for add context to this fucking travel site","aouthor":"faraz rze"}
+def blog_single(request,pid):
+    post=get_object_or_404(Post,id=pid)
+    context={"post":post}
     return render(request,"blog/single.html",context)
