@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Post
+from blog.models import Post,Category
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -9,3 +9,4 @@ class PostAdmin(admin.ModelAdmin):
     empty_value_display="empty"
 
 admin.site.register(Post,PostAdmin)
+admin.site.register(Category)
