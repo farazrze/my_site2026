@@ -12,3 +12,9 @@ def posts():
 @register.filter
 def snippet(value, arg=20):
     return value[:int(arg)]
+
+
+@register.inclusion_tag("post_blog.html")
+def latestpost():
+    posts=Post.objects.filter(status=1).order_by("update_date")
+    return {"posts":posts}
