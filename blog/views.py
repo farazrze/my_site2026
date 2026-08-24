@@ -4,8 +4,10 @@ from blog.models import Post
 
 
 
-def blog_home(request):
+def blog_home(request,cat_name=None):
     posts = Post.objects.filter(status=1)
+    if cat_name:
+        posts = posts.filter(category__name=cat_name)
     context = {'posts': posts}
     return render(request, "blog/home.html", context)
 
@@ -16,8 +18,3 @@ def blog_single(request,pid):
     return render(request,"blog/single.html",context)
 
 
-def blog_category(request,cat_name):
-    posts = Post.objects.filter(status=1)
-    posts = posts.filter(category__name=cat_name)
-    context = {"posts":posts}
-    return render(request,"blog/home.html",context)
