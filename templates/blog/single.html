@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load blog_tags %}
+{% load blog_tag %}
 {% block body %}
   <!-- start banner Area -->
   <section class="relative about-banner">
@@ -225,9 +225,9 @@
               </form>
             </div>
             {% include 'blog/info_blog.html' %}
-            {% include 'blog/post_blog.html' %}
+            {% latestpost %}
             {% include 'blog/ads_blog.html' %}
-            {% include 'blog/cat_blog.html' %}
+            {% category %}
             {% include 'blog/news_blog.html' %}
             {% include 'blog/tag_blog.html' %}
             
