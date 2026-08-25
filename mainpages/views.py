@@ -9,8 +9,8 @@ def about(request):
 
 def contact(request):
     if request.method == "POST":
-        form = Contact_formm(request.POST)
+        form = Contact_form(request.POST)
         if form.is_valid:
             form.save()
-    form=Contact_formm()
-    return render(request,"website/contact.html",form)
+    form=Contact_form()
+    return render(request,"website/contact.html",{"form":form})
