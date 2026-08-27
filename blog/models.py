@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 
 class Category(models.Model):
@@ -20,6 +21,7 @@ class Post(models.Model):
     update_date = models.DateField(auto_now=True)
     counter_view = models.IntegerField(default=0)
     category = models.ManyToManyField(Category)
+    tag = TaggableManager()
 
 
     class Meta:
