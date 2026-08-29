@@ -41,10 +41,10 @@ def blog_home(request,**kwargs):
 
 def blog_single(request,pid):
     post=get_object_or_404(Post,id=pid,status=1)
-    comments = Comment.objects.filter(approve=True)
+    comments = Comment.objects.filter(post=post.id,approve=True)
 
     context={"post":post,"comments":comments}
-        
+
     return render(request,"blog/single.html",context)
 
 
