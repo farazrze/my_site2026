@@ -25,7 +25,7 @@ class Post(models.Model):
 
 
     class Meta:
-        ordering = ["-create_date"]
+        ordering = ["create_date"]
     def __str__(self):
         return "{} {}".format(self.title,self.id)
 
@@ -44,3 +44,10 @@ class Comment(models.Model):
     approve = models.BooleanField(default=False)
     create_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(null=True)
+
+    class Meta:
+        ordering = ["-create_date"]
+
+    def __str__(self):
+        return self.name
+    
