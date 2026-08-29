@@ -7,6 +7,7 @@ class Contact(models.Model):
     message = models.TextField()
     create_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(auto_now=True)
+    
 
     def __str__(self):
         return self.name
