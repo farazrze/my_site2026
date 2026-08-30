@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'captcha',
     'mainpages.apps.MainpagesConfig',
     'blog.apps.BlogConfig',
+    'accounts',
 ]
 
 
