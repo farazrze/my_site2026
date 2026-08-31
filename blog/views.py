@@ -29,9 +29,9 @@ def blog_home(request,**kwargs):
 
 def blog_single(request,pid):
     if request.method == "POST":
-        form = Comments_form(request.POST)
-        if form.is_valid:
-            form.save()
+        my_form = Comments_form(request.POST)
+        if my_form.is_valid():
+            my_form.save()
             messages.add_message(request,messages.SUCCESS,"your comment submited succesfuly")
         else:
             messages.add_message(request,messages.ERROR,"your comment didnt submited")
@@ -39,8 +39,8 @@ def blog_single(request,pid):
 
     post=get_object_or_404(Post,id=pid,status=1)
     comments = Comment.objects.filter(post=post.id,approve=True)
-    form= Comments_form()
-    context={"post":post,"comments":comments,"form":form}
+    my_form= Comments_form()
+    context={"post":post,"comments":comments,"form":my_form}
 
     return render(request,"blog/single.html",context)
 

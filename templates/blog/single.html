@@ -139,8 +139,9 @@
                 <input type="hidden" name="post" value="{{ post.id }}">
                 {% if request.user.is_authenticated %}
 
-                <input type="hidden" name="name" value="{{ post.name }}">
-                <input type="hidden" name="email" value="{{ post.email }}">
+                <input type="hidden" name="name" value="{{ request.user.first_name }}">
+                <input type="hidden" name="email" value="{{ request.user.email }}">
+                
 
                 {% else %}
                 <div class="form-group col-lg-6 col-md-12 name">
