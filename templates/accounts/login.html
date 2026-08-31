@@ -23,10 +23,12 @@
         <img class="m-5" src="{% static 'img/logo-invert.png' %}" alt="" width="220"
             height="50">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        {{ form.as_p }}
         
-        <input type="text" name="username" class="form-control mt-2" placeholder="Username" required autofocus>
+       <!-- <input type="text" name="username" class="form-control mt-2" placeholder="Username" required autofocus>
         
         <input type="password" name="password" class="form-control mt-2" placeholder="Password" required>
+        -->
         <div class="checkbox m-3">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me
