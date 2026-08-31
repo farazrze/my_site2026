@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 def acc_login(request):
     if not request.user.is_authenticated:
@@ -24,4 +25,9 @@ def acc_login(request):
 
 def acc_signup(request):
     return render(request,"accounts/signup.html")
- 
+
+
+@login_required
+def acc_logout(request):
+    logout(request)
+    return redirect("/")

@@ -40,6 +40,7 @@
 			  				<ul>
 								{% if request.user.is_authenticated %}
 			  					<li><a href="http://127.0.0.1:8000/admin/">{{ request.user.username }}</a></li>
+								<li><a href={% url 'accounts:logout' %}>log out</a></li>
 								{% else %}
 			  					<li><a href={% url 'accounts:login' %}>login</a></li>
 								<li><a href={% url 'accounts:signup' %}>sigin up</a></li>
