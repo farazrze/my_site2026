@@ -22,7 +22,7 @@ def acc_login(request):
     else:
         return redirect("/")
 
-
+ 
 def acc_signup(request):
     if not request.user.is_authenticated:
         form = UserCreationForm(request.POST)
