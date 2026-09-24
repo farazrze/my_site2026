@@ -1,0 +1,301 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Page Not Found | Faramarz Rezaee</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0b0d10;
+    --panel: rgba(255, 255, 255, 0.045);
+    --panel-strong: rgba(255, 255, 255, 0.07);
+    --border: rgba(255, 255, 255, 0.09);
+    --text: #eceef1;
+    --muted: #8b93a1;
+    --muted-dim: #5b6270;
+    --accent: #f2b84b;
+    --accent-soft: rgba(242, 184, 75, 0.14);
+    --teal: #4fd1c5;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body.error-404-page {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    padding: 24px;
+  }
+
+  /* faint ambient glow, kept subtle */
+  body.error-404-page::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 900px;
+    height: 900px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(242, 184, 75, 0.05) 0%, rgba(79, 209, 197, 0.03) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* oversized faint brace glyphs — nods to the code that routes every page */
+  .glyph {
+    position: fixed;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.025);
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+    line-height: 1;
+  }
+  .glyph--left  { top: 8%; left: -4%; font-size: clamp(180px, 30vw, 420px); }
+  .glyph--right { bottom: 4%; right: -6%; font-size: clamp(180px, 30vw, 420px); }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 620px;
+    text-align: center;
+  }
+
+  .code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--muted-dim);
+    letter-spacing: 0.02em;
+    margin: 0 0 18px;
+    opacity: 0;
+    animation: rise 0.6s ease-out 0.05s forwards;
+  }
+  .code span { color: var(--accent); }
+
+  h1.status {
+    font-size: clamp(88px, 16vw, 156px);
+    font-weight: 700;
+    line-height: 0.95;
+    margin: 0;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    text-shadow: 0 0 60px rgba(242, 184, 75, 0.12);
+    opacity: 0;
+    animation: rise 0.6s ease-out 0.15s forwards;
+  }
+
+  h2.title {
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 500;
+    margin: 10px 0 14px;
+    color: var(--text);
+    opacity: 0;
+    animation: rise 0.6s ease-out 0.28s forwards;
+  }
+
+  p.subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 420px;
+    margin: 0 auto 36px;
+    opacity: 0;
+    animation: rise 0.6s ease-out 0.4s forwards;
+  }
+
+  /* terminal panel */
+  .terminal {
+    text-align: left;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    margin: 0 0 40px;
+    opacity: 0;
+    animation: rise 0.6s ease-out 0.52s forwards;
+  }
+
+  .terminal__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .terminal__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .terminal__file {
+    margin-left: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted-dim);
+  }
+
+  .terminal__body {
+    padding: 18px 20px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--muted);
+    overflow-x: auto;
+  }
+  .terminal__body .prompt { color: var(--teal); }
+  .terminal__body .path { color: var(--text); word-break: break-all; }
+  .terminal__body .err { color: var(--accent); }
+  .terminal__body .line { white-space: pre-wrap; }
+
+  .cursor {
+    display: inline-block;
+    width: 7px;
+    height: 14px;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: rise 0.6s ease-out 0.64s forwards;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 28px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    border: 1px solid transparent;
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .btn--primary {
+    background: var(--accent-soft);
+    border-color: rgba(242, 184, 75, 0.35);
+    color: var(--accent);
+  }
+  .btn--primary:hover {
+    transform: translateY(-2px);
+    background: rgba(242, 184, 75, 0.2);
+    box-shadow: 0 12px 30px -10px rgba(242, 184, 75, 0.35);
+  }
+
+  .btn--ghost {
+    background: var(--panel);
+    border-color: var(--border);
+    color: var(--text);
+  }
+  .btn--ghost:hover {
+    transform: translateY(-2px);
+    background: var(--panel-strong);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .terminal__body { font-size: 12px; }
+    .btn { width: 100%; }
+    .actions { flex-direction: column; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .code, h1.status, h2.title, p.subtitle, .terminal, .actions {
+      animation: none;
+      opacity: 1;
+    }
+    .cursor { animation: none; opacity: 1; }
+  }
+</style>
+</head>
+<body class="error-404-page">
+
+  <span class="glyph glyph--left">{</span>
+  <span class="glyph glyph--right">}</span>
+
+  <main class="wrap">
+    <p class="code">HTTP <span>404</span> · urls.py</p>
+
+    <h1 class="status">404</h1>
+    <h2 class="title">Page Not Found</h2>
+    <p class="subtitle">The page you're looking for doesn't exist or may have been moved.</p>
+
+    <div class="terminal">
+      <div class="terminal__head">
+        <span class="terminal__dot"></span>
+        <span class="terminal__dot"></span>
+        <span class="terminal__dot"></span>
+        <span class="terminal__file">urls.py</span>
+      </div>
+      <div class="terminal__body">
+        <div class="line"><span class="prompt">$</span> resolve('<span class="path" id="requested-path">/unknown/</span>')</div>
+        <div class="line">Traceback (most recent call last):</div>
+        <div class="line">&nbsp;&nbsp;File "urls.py", line 34, in resolve</div>
+        <div class="line"><span class="err">Resolver404</span>: no matching pattern found<span class="cursor"></span></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a href="/" class="btn btn--primary">Back to Home</a>
+      <a href="/portfolio/" class="btn btn--ghost">View My Work</a>
+    </div>
+  </main>
+
+  <script>
+    // Reflect the actual path that triggered the 404, for a genuine (not staged) feel.
+    (function () {
+      var el = document.getElementById('requested-path');
+      if (el && window.location && window.location.pathname) {
+        el.textContent = window.location.pathname;
+      }
+    })();
+  </script>
+
+</body>
+</html>

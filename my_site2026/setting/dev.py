@@ -7,9 +7,9 @@ from pathlib import Path
 # Development
 SECRET_KEY = 'django-insecure-0@od9-$o!e%@2ct&8-@8^)ue_ie91@lue##f!@o8vh1^gtl$%q'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Django Sites
