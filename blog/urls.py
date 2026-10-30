@@ -2,7 +2,9 @@ from django.urls import path,include
 from . views import *
 from blog.feeds import *
 
+
 app_name="blog"
+
 
 urlpatterns = [
     path("",blog_home,name="home_blog"),
