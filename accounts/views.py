@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth.decorators import login_required
 
+
 def acc_login(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
