@@ -46,9 +46,6 @@ MULTI_CAPTCHA_ADMIN = {
 SUMMERNOTE_THEME = 'bs4'
 
 
-
-
-
 # robots
 
 ROBOTS_USE_SITEMAP = False
